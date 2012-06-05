@@ -1,4 +1,3 @@
-
 # Ruby Batch 33
 # BradC
 # File: wk1ex.rb
