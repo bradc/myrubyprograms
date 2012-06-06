@@ -58,17 +58,33 @@ describe 'Week 1 Exercises' do
     end
   end
   #5) Explain why variable value is printed and not the method result.
-  # - No coding, just explanations.
   # - When ruby encounters a bare word it checks it's symbol table. First 
   #   for an entry in the variable table, if unresolved then moves to methods.
   # - Interestingly, if the parenthesis are added, i.e. my_string() Ruby
   #   skips the check for variables and goes straight to the method table.
-  
+  describe 'Ex05 - Observe scoping' do
+    it 'my_string should display value of variable' do
+      require 'stringio'
+      buffer = ''
+      io = StringIO.new buffer
+      my_string = 'Hello Ruby World'
+      def my_string
+        'Hello World'
+      end
+      io.puts my_string
+      buffer.chomp.should=='Hello Ruby World'
+    end
+  end
+
   #6) Write a temperature conversion routine that converts from Fahrenheit to Celsius.
+  #NOTE: I didn't bother writing the version using round. Nothing against round, just 
+  #didn't want to. :)
   describe 'Ex06 - Convert Fahrenheit to Celsius' do 
     it 'should convert given fahrenheit value to celsius' do
       # Values taken from http://fahrenheittocelsius.com/
       # Must be a better way, this is pretty tedius
+      # Also, the all the values apparently calculate out to be ##.#0!
+      # Pretty convenient. :S
       #
       # Generate test data
       FahrenheitValues=14.00.step(105.0,1.8).to_a
@@ -76,8 +92,9 @@ describe 'Week 1 Exercises' do
       # Create a table of conversions as cross check with calculate_celsius results.    
       F2C_ConversionTable=Hash[FahrenheitValues.zip(CelsiusValues)]
       # Note: exercise used a higher precision floating point number, e.g. 1.2022327
-      # and these tables and calculations are generally single precision 3.2 (where the 0 
-      # can be assumed, i.e. 3.20
+      # The results in this table are generally single precision 3.2 (where the 0 
+      # can be assumed, i.e. 3.20. This is a product of the source data and not 
+      # reflective of the calculations.
       FahrenheitValues.each do |f|
         Float('%.2f' % convert(f)).should==Float('%.2f' % F2C_ConversionTable[f])
       end
