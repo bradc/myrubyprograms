@@ -12,6 +12,9 @@
 # Notes:
 # - Initial specs, not clear on handling errors.
 def leap_year? year
-  ((year % 400).zero? && (not !(year % 4).zero?)) || (year % 4).zero? 
+  ((year%4).zero? && (year%100)!=0 || (year%400).zero?)
+end
 
+if $0 == __FILE__
+  (1890..2020).each{ |year| puts "Year #{year} is #{leap_year?(year) ? 'a leap' : 'not a leap'} year"}
 end

@@ -2,6 +2,10 @@
 # # BradC
 # # File: wk1ex.rb
 # #====================
+def calculate_minutes_in_year year
+  60*24* (leap_year?(year) ? 366 : 365)
+end
+
 describe 'Week 2 - Exercises' do
 
   describe 'Ex01 - String processing' do
@@ -13,8 +17,8 @@ describe 'Week 2 - Exercises' do
       @io_buffer=''
     end
     it 'should split strings and keep a count' do
-      Data = "Welcome to the forum.\nHere you can learn Ruby.\nAlong with other members.\n"
-      Data.each_with_index {|line,line_number| @out.puts "Line #{line_number}: #{line}" }
+      data = "Welcome to the forum.\nHere you can learn Ruby.\nAlong with other members.\n"
+      data.each_with_index {|line,line_number| @out.puts "Line #{line_number}: #{line}" }
       @io_buffer.should=="Line 0: Welcome to the forum.\nLine 1: Here you can learn Ruby.\nLine 2: Along with other members.\n"
     end 
   end
@@ -38,6 +42,18 @@ describe 'Week 2 - Exercises' do
     end
     it 'should correctly identify a non-leap century' do
       leap_year?(1900).should==false
+    end
+    it 'should correctly calculate number of minutes in a leap year' do
+      MinutesInALeapYear=60*24*366
+      [2000,2004].each {|year|
+        calculate_minutes_in_year(year).should==MinutesInALeapYear
+      }
+    end
+    it 'should correctly calculate number of minutes in a non-leap year' do
+      MinutesInANonLeapYear=60*24*365
+      [1900,2005].each {|year|
+        calculate_minutes_in_year(year).should==MinutesInANonLeapYear
+      }
     end
   end
 end
